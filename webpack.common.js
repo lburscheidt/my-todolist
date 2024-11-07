@@ -4,9 +4,9 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = {
-  entry: {app: "./src/index.js",}
+  entry: { app: "./src/index.js" },
 
-plugins: [
+  plugins: [
     new HtmlWebpackPlugin({
       template: "./src/template.html",
     }),
@@ -15,8 +15,8 @@ plugins: [
     }),
   ],
   output: {
-    filename: "[name].bundle.js",
-    path: path.join(__dirname, "dist"),
+    filename: "main.js",
+    path: path.resolve(__dirname, "dist"),
     clean: true,
   },
 
@@ -36,13 +36,4 @@ plugins: [
       },
     ],
   },
-
- optimization: {
-   usedExports: true,
-devtool: "eval-source-map",
-  devServer: {
-    watchFiles: ["./src/template.html"],
- },
-  },
-
 };
