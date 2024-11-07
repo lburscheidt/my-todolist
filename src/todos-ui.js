@@ -94,6 +94,8 @@ export function createMasterlistDropdown() {
   });
 }
 
+newTodoBtn.addEventListener("click", () => {});
+
 // export function renderProject(project) {
 //   if (project.projectTodos != []) {
 //     const projectIndex =

@@ -31,12 +31,43 @@
           </div>
 
           <div class="borders todo-card div2"></div>
-          <dialog id="new-project-dialog">
+          <dialog id="new-project-dialog" class="hidden">
             <button class="close-btn" id="project-dialog-close-btn">x</button>
             <label for="project-title-input">Enter project name</label
             ><input id="project-title-input" type="text">
             <form method="dialog">
               <button id="create-project-btn">Create project</button>
+            </form>
+          </dialog>
+          <dialog id="new-todo-dialog">
+            <button class="close-btn" id="todo-dialog-close-btn">x</button>
+            <div class="flex-div">
+              <label for="todo-title-input">Title</label
+              ><input type="text" id="todo-title-input">
+            </div>
+            <div class="flex-div">
+              <label for="todo-desc-input">Description</label
+              ><input type="textarea" id="todo-desc-input">
+            </div>
+            <div class="flex-div">
+              <label for="todo-duedate-input">Due Date</label
+              ><input type="date" id="todo-duedate-input">
+            </div>
+            <div class="flex-div">
+              <label for="todo-priority">Priority</label>
+              <select id="todo-priority">
+                <option value="" low>low</option>
+                <option value="normal" selected>normal</option>
+                <option value="high">high</option>
+              </select>
+            </div>
+            <div class="flex-div">
+              <label for="todo-project">Project</label>
+              <select id="todo-project"></select>
+            </div>
+
+            <form method="dialog">
+              <button id="create-todo-btn">Create todo</button>
             </form>
           </dialog>
         </div>
