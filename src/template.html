@@ -3,12 +3,44 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>TO DO LIST</title>
     <link rel="icon" href="images/favicon.png" type="image/png">
   </head>
   <body>
-    <header></header>
-    <main></main>
-    <footer></footer>
+    <header>To Do List App</header>
+    <main id="main">
+      <div class="borders container">
+        <div class="borders sidebar">
+          <button id="new-todo-btn">New todo</button>
+          <select id="masterlist-dropdown">
+            <optgroup label="Select project">
+              <option value="" selected>SELECT PROJECT</option>
+              <option value="create-new" id="create-new">Create new</option>
+            </optgroup>
+            <optgroup id="projects-optgroup" label="PROJECTS"></optgroup>
+          </select>
+        </div>
+        <div class="borders todos" id="todos">
+          <div class="borders todo-card div1">
+            <div class="todo-card-inner">
+              <span>Title</span>
+              <span>Description</span>
+              <span>Due date</span>
+              <span>Priority</span>
+            </div>
+          </div>
+
+          <div class="borders todo-card div2"></div>
+          <dialog id="new-project-dialog">
+            <button class="close-btn" id="project-dialog-close-btn">x</button>
+            <label for="project-title-input">Enter project name</label
+            ><input id="project-title-input" type="text">
+            <form method="dialog">
+              <button id="create-project-btn">Create project</button>
+            </form>
+          </dialog>
+        </div>
+      </div>
+    </main>
   </body>
 </html>

@@ -1,6 +1,8 @@
 import { addProjectToMasterlist, createProject } from "./projects-logic";
 import { masterlist } from "./todos-logic";
 
+const masterlistDropdown = document.querySelector("#masterlist-dropdown");
+
 //create new todos
 const newTodoBtn = document.querySelector("#new-todo-btn");
 
@@ -14,10 +16,19 @@ const projectDialogCloseBtn = document.querySelector(
 const projectsOptgroup = document.querySelector("#projects-optgroup");
 
 export function newProjectFromDialog() {
+  masterlistDropdown.addEventListener("click", () => {
+    if (masterlistDropdown.value === "create-new") {
+      newProjectDialog.showModal();
+    }
+    //else {renderProject(masterlistDropdown.value)}
+  });
   createProjectBtn.addEventListener("click", () => {
     let newProject = createProject(projectTitleInput.value);
     addProjectToMasterlist(newProject);
+    let index = masterlist.indexOf(newProject);
+    console.log(index);
     createMasterlistDropdown();
+    masterlistDropdown.selectedIndex = index + 2;
   });
   projectDialogCloseBtn.addEventListener("click", () => {
     newProjectDialog.close();
