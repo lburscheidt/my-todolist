@@ -8,17 +8,8 @@ export function getMasterlist() {
   }
 }
 
-
 export function createTodo(todoTitle, todoDesc, todoDueDate, todoPriority) {
   return { todoTitle, todoDesc, todoDueDate, todoPriority };
-}
-
-export function createProject(projectTitle) {
-  if (masterlist.projectTitle) {
-    alert("Please pick a different title");
-  }
-  let projectTodos = [];
-  return { projectTitle, projectTodos };
 }
 
 export function addTodoToProject(todo, project) {
@@ -26,16 +17,6 @@ export function addTodoToProject(todo, project) {
   populateStorage();
 }
 
-export function addProjectToMasterlist(project) {
-  masterlist.push(project);
-  populateStorage();
-}
-
-function populateStorage() {
+export function populateStorage() {
   localStorage.setItem("masterlist", JSON.stringify(masterlist));
 }
-
-// unction getMasterlist() {
-// et storedList = localStorage.getItem("masterlist");
-//  masterlist = JSON.parse(storedList);
-//

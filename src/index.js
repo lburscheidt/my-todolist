@@ -3,7 +3,11 @@ console.log("hello");
 if (process.env.NODE_ENV !== "production") {
   console.log("We're in development mode.");
 }
+import { masterlist } from "./todos-logic";
+import { newProjectFromDialog, createMasterlistDropdown } from "./todos-ui";
+import {} from "./todos-logic";
 
-import { masterlist } from "./todo-logic";
-
-console.log(masterlist);
+document.addEventListener("DOMContentLoaded", () => {
+  createMasterlistDropdown();
+  newProjectFromDialog();
+});
