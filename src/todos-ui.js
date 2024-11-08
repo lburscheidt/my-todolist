@@ -34,63 +34,77 @@ import { createTodo } from "./todos-logic";
 
 export function renderTodos(projectIndex) {
   todos.innerHTML = "";
-  masterlist[projectIndex].projectTodos.forEach((todo) => {
-    const todoCard = document.createElement("div");
-    const todoColor = document.createElement("div");
-    const todoCardInner = document.createElement("div");
-    todoColor.classList.add("todo-color");
-    todoCard.appendChild(todoColor);
-    todoCard.appendChild(todoCardInner);
-    todos.appendChild(todoCard);
-    todoCard.classList.add("todo-card");
-    const todoIndex = masterlist[projectIndex].projectTodos.indexOf(todo);
-    todoCard.dataset.todoIndex = todoIndex;
-    todoCardInner.classList.add("todo-card-inner");
-    const { todoTitle, todoDesc, todoDueDate, todoPriority } = todo;
-    if (todoPriority == "high") {
-      todoColor.style.backgroundColor = "firebrick";
-    } else if (todoPriority == "normal") {
-      todoColor.style.backgroundColor = "gold";
-    } else if (todoPriority == "low") {
-      todoColor.style.backgroundColor = "forestgreen";
-    }
-
-    const todoTitleDiv = document.createElement("div");
-    const todoDescDiv = document.createElement("div");
-    const todoDueDateDiv = document.createElement("input");
-    const todoPriorityDiv = document.createElement("select");
-
-    todoTitleDiv.textContent = todoTitle;
-    todoDescDiv.textContent = todoDesc;
-    todoDueDateDiv.setAttribute("type", "date");
-    todoDueDateDiv.value = todoDueDate;
-    todoDueDateDiv.addEventListener("change", () => {
-      todo.todoDueDate = todoDueDateDiv.value;
-      populateStorage();
-    });
-    priorities.forEach((item) => {
-      let priority = document.createElement("option");
-      priority.textContent = item;
-      priority.value = item;
-      todoPriorityDiv.appendChild(priority);
-    });
-    todoPriorityDiv.value = todoPriority;
-    todoPriorityDiv.addEventListener("click", () => {
-      todo.todoPriority = todoPriorityDiv.value;
-      if (todo.todoPriority == "high") {
+  if (masterlist[projectIndex].projectTodos.length > 0) {
+    console.log(masterlist[projectIndex].projectTodos);
+    masterlist[projectIndex].projectTodos.forEach((todo) => {
+      const todoCard = document.createElement("div");
+      const todoColor = document.createElement("div");
+      const todoCardInner = document.createElement("div");
+      todoColor.classList.add("todo-color");
+      todoCard.appendChild(todoColor);
+      todoCard.appendChild(todoCardInner);
+      todos.appendChild(todoCard);
+      todoCard.classList.add("todo-card");
+      const todoIndex = masterlist[projectIndex].projectTodos.indexOf(todo);
+      todoCard.dataset.todoIndex = todoIndex;
+      todoCardInner.classList.add("todo-card-inner");
+      const { todoTitle, todoDesc, todoDueDate, todoPriority } = todo;
+      if (todoPriority == "high") {
         todoColor.style.backgroundColor = "firebrick";
-      } else if (todo.todoPriority == "normal") {
+      } else if (todoPriority == "normal") {
         todoColor.style.backgroundColor = "gold";
-      } else if (todo.todoPriority == "low") {
+      } else if (todoPriority == "low") {
         todoColor.style.backgroundColor = "forestgreen";
       }
-      populateStorage();
+      const todoTitleDiv = document.createElement("div");
+      const todoDescDiv = document.createElement("div");
+      const todoDueDateDiv = document.createElement("input");
+      const todoPriorityDiv = document.createElement("select");
+      const todoDoneBtn = document.createElement("button");
+      todoTitleDiv.textContent = todoTitle;
+      todoDescDiv.textContent = todoDesc;
+      todoDueDateDiv.setAttribute("type", "date");
+      todoDueDateDiv.value = todoDueDate;
+      todoDueDateDiv.addEventListener("change", () => {
+        todo.todoDueDate = todoDueDateDiv.value;
+        populateStorage();
+      });
+      priorities.forEach((item) => {
+        let priority = document.createElement("option");
+        priority.textContent = item;
+        priority.value = item;
+        todoPriorityDiv.appendChild(priority);
+      });
+      todoPriorityDiv.value = todoPriority;
+      todoPriorityDiv.addEventListener("click", () => {
+        todo.todoPriority = todoPriorityDiv.value;
+        if (todo.todoPriority == "high") {
+          todoColor.style.backgroundColor = "firebrick";
+        } else if (todo.todoPriority == "normal") {
+          todoColor.style.backgroundColor = "gold";
+        } else if (todo.todoPriority == "low") {
+          todoColor.style.backgroundColor = "forestgreen";
+        }
+        populateStorage();
+      });
+      todoDoneBtn.value = "Done";
+      todoDoneBtn.textContent = "Done";
+      todoDoneBtn.addEventListener("click", () => {
+        let index = masterlist[projectIndex].projectTodos.indexOf(todo);
+        masterlist[projectIndex].projectTodos.splice(index, 1);
+        populateStorage();
+        console.log(masterlist.indexOf(masterlist[projectIndex]));
+        renderTodos(masterlist.indexOf(masterlist[projectIndex]));
+      });
+      todoCardInner.appendChild(todoTitleDiv);
+      todoCardInner.appendChild(todoDescDiv);
+      todoCardInner.appendChild(todoDueDateDiv);
+      todoCardInner.appendChild(todoPriorityDiv);
+      todoCardInner.appendChild(todoDoneBtn);
     });
-    todoCardInner.appendChild(todoTitleDiv);
-    todoCardInner.appendChild(todoDescDiv);
-    todoCardInner.appendChild(todoDueDateDiv);
-    todoCardInner.appendChild(todoPriorityDiv);
-  });
+  } else {
+    void 0;
+  }
 }
 
 export function createMasterlistDropdown() {
@@ -139,9 +153,8 @@ todoDialogCloseBtn.addEventListener("click", () => {
 });
 
 projectDialogCloseBtn.addEventListener("click", () => {
-  body.classList - remove("modal-open");
-  newProjectDialog.close();
   body.classList.remove("modal-open");
+  newProjectDialog.close();
 });
 
 function createProjectsDropdown() {

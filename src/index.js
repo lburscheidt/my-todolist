@@ -3,6 +3,7 @@ console.log("hello");
 if (process.env.NODE_ENV !== "production") {
   console.log("We're in development mode.");
 }
+const body = document.querySelector("body");
 const header = document.querySelector("header");
 import { masterlist, getMasterlist, populateStorage } from "./todos-logic";
 import { createProject, addProjectToMasterlist } from "./projects-logic";
@@ -52,6 +53,8 @@ createProjectBtn.addEventListener("click", () => {
   renderTodos(index);
   createMasterlistDropdown();
   masterlistDropdown.selectedIndex = index + 2;
+  newProjectDialog.close();
+  body.classList.remove("modal-open");
   //    createMasterlistDropdown();
   //    masterlistDropdown.selectedIndex = index + 2;
   //  });
