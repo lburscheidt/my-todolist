@@ -91,6 +91,15 @@ select {
   font-weight: 800;
 }
 
+option-group {
+  background-color: teal;
+  font-weight: bold;
+}
+
+option {
+  background-color: blueviolet;
+}
+
 dialog[open] {
   position: absolute;
   top: 50%;
@@ -112,19 +121,26 @@ dialog select {
   border: 1px solid black;
   border-radius: 0.5rem;
 }
+
 form {
   display: flex;
   flex-direction: column;
   width: 100%;
   align-items: flex-end;
 }
+
 .create-todo-btn {
   width: 50%;
+  align-self: flex-end;
 }
 
 .close-btn {
   align-self: flex-end;
   width: 30px;
+}
+
+#create-project-btn {
+  align-self: flex-end;
 }
 
 .special-project {
@@ -240,6 +256,10 @@ form {
 .div16 {
   grid-area: 4 / 4 / 5 / 5;
 }
-.hidden {
+option[value="select-project"] {
   display: none;
+}
+
+optgroup {
+  background-color: teal;
 }
