@@ -10,13 +10,52 @@
     <header>To Do List App</header>
     <main id="main">
       <div class="borders container">
+        <dialog id="new-project-dialog">
+          <button class="close-btn" id="project-dialog-close-btn">x</button>
+          <label for="project-title-input">Enter project name</label
+          ><input id="project-title-input" type="text">
+          <button id="create-project-btn">Create project</button>
+        </dialog>
+
+        <!--NEW TODO DIALOG-->
+        <dialog id="new-todo-dialog">
+          <button class="close-btn" id="todo-dialog-close-btn">x</button>
+          <label for="todo-title-input">Title</label
+          ><input type="text" id="todo-title-input">
+          <label for="todo-desc-input">Description</label
+          ><input type="textarea" id="todo-desc-input">
+          <label for="todo-duedate-input">Due Date</label
+          ><input type="date" id="todo-duedate-input">
+          <label for="todo-priority-input">Priority</label>
+          <select id="todo-priority-input">
+            <option value="" low>low</option>
+            <option value="normal" selected>normal</option>
+            <option value="high">high</option>
+          </select>
+          <label for="todo-project">Project</label>
+          <select id="todo-project">
+            <optgroup label="Select project">
+              <option value="">SELECT PROJECT</option>
+              <option value="create-new" id="dialog-create-new">
+                Create new
+              </option>
+            </optgroup>
+            <optgroup id="dialog-projects-optgroup" label="PROJECTS"></optgroup>
+          </select>
+          <button id="create-todo-btn" class="create-todo-btn">
+            Create todo
+          </button>
+        </dialog>
         <div class="borders sidebar">
           <button id="new-todo-btn">New todo</button>
           <select id="masterlist-dropdown">
             <optgroup label="Select project">
-              <option value="" selected>SELECT PROJECT</option>
+              <option value="select-project" class="option-group">
+                Select project
+              </option>
               <option value="create-new" id="create-new">Create new</option>
             </optgroup>
+
             <optgroup id="projects-optgroup" label="PROJECTS"></optgroup>
           </select>
         </div>
@@ -42,49 +81,6 @@
               </select>
             </div>
           </div>
-          <dialog id="new-project-dialog">
-            <button class="close-btn" id="project-dialog-close-btn">x</button>
-            <label for="project-title-input">Enter project name</label
-            ><input id="project-title-input" type="text">
-            <form method="dialog">
-              <button id="create-project-btn">Create project</button>
-            </form>
-          </dialog>
-          <dialog id="new-todo-dialog">
-            <button class="close-btn" id="todo-dialog-close-btn">x</button>
-
-            <label for="todo-title-input">Title</label
-            ><input type="text" id="todo-title-input">
-
-            <label for="todo-desc-input">Description</label
-            ><input type="textarea" id="todo-desc-input">
-            <label for="todo-duedate-input">Due Date</label
-            ><input type="date" id="todo-duedate-input">
-            <label for="todo-priority-input">Priority</label>
-            <select id="todo-priority-input">
-              <option value="" low>low</option>
-              <option value="normal" selected>normal</option>
-              <option value="high">high</option>
-            </select>
-            <label for="todo-project">Project</label>
-            <select id="todo-project">
-              <optgroup label="Select project">
-                <option value="" selected>SELECT PROJECT</option>
-                <option value="create-new" id="dialog-create-new">
-                  Create new
-                </option>
-              </optgroup>
-              <optgroup
-                id="dialog-projects-optgroup"
-                label="PROJECTS"
-              ></optgroup>
-            </select>
-            <form method="dialog">
-              <button id="create-todo-btn" class="create-todo-btn">
-                Create todo
-              </button>
-            </form>
-          </dialog>
         </div>
       </div>
     </main>
