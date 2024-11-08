@@ -1,5 +1,5 @@
 import { addProjectToMasterlist, createProject } from "./projects-logic";
-import { masterlist } from "./todos-logic";
+import { addTodoToProject, masterlist } from "./todos-logic";
 
 const masterlistDropdown = document.querySelector("#masterlist-dropdown");
 const header = document.querySelector("header");
@@ -12,6 +12,11 @@ const todoProject = document.querySelector("#todo-project");
 const dialogProjectsOptgroup = document.querySelector(
   "#dialog-projects-optgroup",
 );
+const todoTitleInput = document.querySelector("#todo-title-input");
+const todoDescInput = document.querySelector("#todo-desc-input");
+const todoDuedateInput = document.querySelector("#todo-duedate-input");
+const todoPriorityInput = document.querySelector("#todo-priority-input");
+
 //create new projects
 const createProjectBtn = document.querySelector("#create-project-btn");
 const projectTitleInput = document.querySelector("#project-title-input");
@@ -20,6 +25,8 @@ const projectDialogCloseBtn = document.querySelector(
   "#project-dialog-close-btn",
 );
 const projectsOptgroup = document.querySelector("#projects-optgroup");
+
+import { createTodo } from "./todos-logic";
 
 export function newProjectFromDialog() {
   masterlistDropdown.addEventListener("click", () => {
@@ -34,36 +41,11 @@ export function newProjectFromDialog() {
       console.log(masterlist[index].projectTitle);
       console.log(masterlist[index].projectTodos);
       if (masterlist[index].projectTodos.length > 0) {
-        let projectTodos = masterlist[index].projectTodos;
-        projectTodos.forEach((todo) => {
-          console.log("There are todos here!");
-          const todoCard = document.createElement("div");
-          const todoCardInner = document.createElement("div");
-          todoCard.appendChild(todoCardInner);
-          todos.appendChild(todoCard);
-          todoCard.classList.add("todo-card");
-          const todoIndex = masterlist[projectIndex].projectTodos.indexOf(todo);
-          todoCard.dataset.todoIndex = todoIndex;
-          todoCardInner.classList.add("todo-card-inner");
-          const { todoTitle, todoDescription, todoDueDate, todoPriority } =
-            todo;
-          const todoTitleDiv = document.createElement("div");
-          const todoDescDiv = document.createElement("div");
-          todoTitleDiv.textContent = todoTitle;
-          todoDescDiv.textContent = todoDescription;
-          todoCardInner.appendChild(todoTitleDiv);
-          todoCardInner.appendChild(todoDescDiv);
-          const todoDueDateDiv = document.createElement("input");
-          todoDueDateDiv.setAttribute("type", "date");
-          todoCardInner.appendChild(todoDueDateDiv);
-          const todoPriorityDiv = document.createElement("select");
-          let todoPriorityList = priorities.forEach((item) => {
-            let priority = document.createElement("option");
-            priority.textContent = item;
-            todoPriorityDiv.appendChild(priority);
-          });
-          todoCardInner.appendChild(todoPriorityDiv);
-        });
+        //  let projectTodos = masterlist[index].projectTodos;
+
+        console.log("There are todos here!");
+        /*make separate function out of this at some point*/
+        renderTodos();
       } else {
         todos.innerHTML = "";
         header.textContent = `${masterlist[index].projectTitle}`;
@@ -82,6 +64,40 @@ export function newProjectFromDialog() {
   });
   projectDialogCloseBtn.addEventListener("click", () => {
     newProjectDialog.close();
+  });
+}
+
+export function renderTodos(projectIndex) {
+  masterlist[projectIndex].projectTodos.forEach((todo) => {
+    const todoCard = document.createElement("div");
+    const todoCardInner = document.createElement("div");
+    todoCard.appendChild(todoCardInner);
+    todos.appendChild(todoCard);
+    todoCard.classList.add("todo-card");
+    const todoIndex = masterlist[projectIndex].projectTodos.indexOf(todo);
+    todoCard.dataset.todoIndex = todoIndex;
+    todoCardInner.classList.add("todo-card-inner");
+    const { todoTitle, todoDesc, todoDueDate, todoPriority } = todo;
+    const todoTitleDiv = document.createElement("div");
+    const todoDescDiv = document.createElement("div");
+    todoTitleDiv.textContent = todoTitle;
+    todoDescDiv.textContent = todoDesc;
+    todoCardInner.appendChild(todoTitleDiv);
+    todoCardInner.appendChild(todoDescDiv);
+    const todoDueDateDiv = document.createElement("input");
+    todoDueDateDiv.setAttribute("type", "date");
+    todoDueDateDiv.value = todoDueDate;
+    todoCardInner.appendChild(todoDueDateDiv);
+    const todoPriorityDiv = document.createElement("select");
+    let todoPriorityList = priorities.forEach((item) => {
+      let priority = document.createElement("option");
+      priority.textContent = item;
+      priority.value = item;
+
+      todoPriorityDiv.appendChild(priority);
+    });
+    todoPriorityDiv.options[todoPriorityDiv.selectedIndex].value = todoPriority;
+    todoCardInner.appendChild(todoPriorityDiv);
   });
 }
 
@@ -104,7 +120,21 @@ newTodoBtn.addEventListener("click", () => {
   createProjectsDropdown();
 });
 
-createTodoBtn.addEventListener("click", () => {});
+createTodoBtn.addEventListener("click", () => {
+  let option = todoProject.options[todoProject.selectedIndex];
+
+  let projectIndex = option.dataset.index;
+  let newTodo = createTodo(
+    todoTitleInput.value,
+    todoDescInput.value,
+    todoDuedateInput.value,
+    todoPriorityInput.options[todoPriorityInput.selectedIndex].value,
+  );
+  addTodoToProject(newTodo, projectIndex);
+  newTodoDialog.close();
+  renderTodos(projectIndex);
+  masterlistDropdown.value = option.value;
+});
 
 function createProjectsDropdown() {
   dialogProjectsOptgroup.innerHTML = "";
@@ -163,3 +193,4 @@ function createProjectsDropdown() {
 //   }
 // }
 //
+const priorities = ["high", "normal", "low"];

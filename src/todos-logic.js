@@ -12,8 +12,8 @@ export function createTodo(todoTitle, todoDesc, todoDueDate, todoPriority) {
   return { todoTitle, todoDesc, todoDueDate, todoPriority };
 }
 
-export function addTodoToProject(todo, project) {
-  project.projectTodos.push(todo);
+export function addTodoToProject(todo, projectNumber) {
+  masterlist[projectNumber].projectTodos.push(todo);
   populateStorage();
 }
 
