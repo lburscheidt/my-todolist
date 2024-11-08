@@ -64,7 +64,6 @@ export function renderTodos(projectIndex) {
     todoDescDiv.textContent = todoDesc;
     todoDueDateDiv.setAttribute("type", "date");
     todoDueDateDiv.value = todoDueDate;
-    //console.log(todoDueDateDiv.value);
     todoDueDateDiv.addEventListener("change", () => {
       todo.todoDueDate = todoDueDateDiv.value;
       populateStorage();
@@ -76,7 +75,17 @@ export function renderTodos(projectIndex) {
       todoPriorityDiv.appendChild(priority);
     });
     todoPriorityDiv.value = todoPriority;
-
+    todoPriorityDiv.addEventListener("click", () => {
+      todo.todoPriority = todoPriorityDiv.value;
+      if (todo.todoPriority == "high") {
+        todoColor.style.backgroundColor = "firebrick";
+      } else if (todo.todoPriority == "normal") {
+        todoColor.style.backgroundColor = "gold";
+      } else if (todo.todoPriority == "low") {
+        todoColor.style.backgroundColor = "forestgreen";
+      }
+      populateStorage();
+    });
     todoCardInner.appendChild(todoTitleDiv);
     todoCardInner.appendChild(todoDescDiv);
     todoCardInner.appendChild(todoDueDateDiv);
