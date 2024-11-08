@@ -5,6 +5,7 @@ export const masterlistDropdown = document.querySelector(
   "#masterlist-dropdown",
 );
 const header = document.querySelector("header");
+const body = document.querySelector("body");
 const todos = document.querySelector("#todos");
 //create new todos
 const newTodoBtn = document.querySelector("#new-todo-btn");
@@ -93,6 +94,7 @@ export function createMasterlistDropdown() {
 
 newTodoBtn.addEventListener("click", () => {
   newTodoDialog.showModal();
+  body.classList.add("modal-open");
   createProjectsDropdown();
   if (masterlistDropdown.value === "select-project") {
     todoProject.value = "default-project";
@@ -113,16 +115,20 @@ createTodoBtn.addEventListener("click", () => {
   );
   addTodoToProject(newTodo, projectIndex);
   newTodoDialog.close();
+  body.classList.remove("modal-open");
   renderTodos(projectIndex);
   masterlistDropdown.value = option.value;
 });
 
 todoDialogCloseBtn.addEventListener("click", () => {
   newTodoDialog.close();
+  body.classList.remove("modal-open");
 });
 
 projectDialogCloseBtn.addEventListener("click", () => {
+  body.classList - remove("modal-open");
   newProjectDialog.close();
+  body.classList.remove("modal-open");
 });
 
 function createProjectsDropdown() {

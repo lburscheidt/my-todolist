@@ -25,6 +25,7 @@ createMasterlistDropdown();
 masterlistDropdown.addEventListener("click", () => {
   if (masterlistDropdown.value === "create-new") {
     newProjectDialog.showModal();
+    body.classList.add("modal-open");
   } else if (masterlistDropdown.value === "select-project") {
     void 0;
   } else {

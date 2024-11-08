@@ -63,15 +63,21 @@ h6 {
 /*reset ends*/
 
 body {
-  background-color: rebeccapurple;
+  background-color: #302c38;
   font-family: Ubuntu, "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   height: 100vh;
   width: 100vw;
 }
 
 header {
+  color: white;
   height: 5%;
   width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: 800;
 }
 main {
   height: 95%;
@@ -84,23 +90,27 @@ button {
 
 button,
 select {
-  background-color: blueviolet;
+  background-color: #302c38;
   color: white;
-  border: 1px solid rebeccapurple;
+  border: 1px solid #46434d;
   height: 30px;
   font-weight: 800;
 }
 
 option-group {
-  background-color: teal;
+  background-color: #282828;
   font-weight: bold;
 }
 
 option {
-  background-color: blueviolet;
+  background-color: #46434d;
 }
 
 dialog[open] {
+  border: 1px solid white;
+  color: white;
+  background-color: #302c38;
+  border-radius: 1rem;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -173,6 +183,7 @@ form {
   flex-direction: column;
   gap: 10px;
 }
+
 .todos {
   grid-area: 1 / 2 / 6 / 6;
   display: grid;
@@ -183,9 +194,10 @@ form {
 }
 
 .todo-card {
-  display: flex;
-  background-color: aliceblue;
+  background-color: #46434d;
+  color: white;
   border-radius: 1rem;
+  display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
@@ -208,6 +220,19 @@ form {
   gap: 5px;
 }
 
+input[type="date"] {
+  background-color: #302c38;
+  color: white;
+  background: #302c38;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  color: white;
+}
+
+.datepickerbg {
+  color-scheme: dark;
+}
 .div1 {
   grid-area: 1 / 1 / 2 / 2;
 }
@@ -261,5 +286,13 @@ option[value="select-project"] {
 }
 
 optgroup {
-  background-color: teal;
+  background-color: #282828;
+}
+
+.modal-open {
+  filter: blur(10px);
+}
+
+.modal-closed {
+  filter: none;
 }
