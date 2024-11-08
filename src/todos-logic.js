@@ -4,8 +4,9 @@ export function getMasterlist() {
   if (localStorage.getItem("masterlist")) {
     return JSON.parse(localStorage.getItem("masterlist"));
   } else {
-    return [];
+    return [{ projectTitle: "Default project", projectTodos: [] }];
   }
+  
 }
 
 export function createTodo(todoTitle, todoDesc, todoDueDate, todoPriority) {

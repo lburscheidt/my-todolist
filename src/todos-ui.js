@@ -1,13 +1,16 @@
 import { addProjectToMasterlist, createProject } from "./projects-logic";
 import { addTodoToProject, masterlist } from "./todos-logic";
 
-const masterlistDropdown = document.querySelector("#masterlist-dropdown");
+export const masterlistDropdown = document.querySelector(
+  "#masterlist-dropdown",
+);
 const header = document.querySelector("header");
 const todos = document.querySelector("#todos");
 //create new todos
 const newTodoBtn = document.querySelector("#new-todo-btn");
 const newTodoDialog = document.querySelector("#new-todo-dialog");
 const createTodoBtn = document.querySelector("#create-todo-btn");
+const todoDialogCloseBtn = document.querySelector("#todo-dialog-close-btn");
 const todoProject = document.querySelector("#todo-project");
 const dialogProjectsOptgroup = document.querySelector(
   "#dialog-projects-optgroup",
@@ -18,46 +21,15 @@ const todoDuedateInput = document.querySelector("#todo-duedate-input");
 const todoPriorityInput = document.querySelector("#todo-priority-input");
 
 //create new projects
-const createProjectBtn = document.querySelector("#create-project-btn");
-const projectTitleInput = document.querySelector("#project-title-input");
-const newProjectDialog = document.querySelector("#new-project-dialog");
-const projectDialogCloseBtn = document.querySelector(
+export const createProjectBtn = document.querySelector("#create-project-btn");
+export const projectTitleInput = document.querySelector("#project-title-input");
+export const newProjectDialog = document.querySelector("#new-project-dialog");
+export const projectDialogCloseBtn = document.querySelector(
   "#project-dialog-close-btn",
 );
 const projectsOptgroup = document.querySelector("#projects-optgroup");
 
 import { createTodo } from "./todos-logic";
-
-export function newProjectFromDialog() {
-  masterlistDropdown.addEventListener("click", () => {
-    if (masterlistDropdown.value === "create-new") {
-      newProjectDialog.showModal();
-    } else {
-      const index =
-        masterlistDropdown.options[masterlistDropdown.selectedIndex].dataset
-          .index;
-      const length = masterlist[index].projectTodos.length;
-      if (length > 0) {
-        console.log("There are todos here!");
-        renderTodos(index);
-      } else {
-        todos.innerHTML = "";
-      }
-      header.textContent = `${masterlist[index].projectTitle}`;
-    }
-  });
-  createProjectBtn.addEventListener("click", () => {
-    let newProject = createProject(projectTitleInput.value);
-    addProjectToMasterlist(newProject);
-    let index = masterlist.indexOf(newProject);
-    console.log(index);
-    createMasterlistDropdown();
-    masterlistDropdown.selectedIndex = index + 2;
-  });
-  projectDialogCloseBtn.addEventListener("click", () => {
-    newProjectDialog.close();
-  });
-}
 
 export function renderTodos(projectIndex) {
   todos.innerHTML = "";
@@ -122,6 +94,11 @@ export function createMasterlistDropdown() {
 newTodoBtn.addEventListener("click", () => {
   newTodoDialog.showModal();
   createProjectsDropdown();
+  if (masterlistDropdown.value === "select-project") {
+    todoProject.value = "default-project";
+  } else {
+    todoProject.value = masterlistDropdown.value;
+  }
 });
 
 createTodoBtn.addEventListener("click", () => {
@@ -138,6 +115,14 @@ createTodoBtn.addEventListener("click", () => {
   newTodoDialog.close();
   renderTodos(projectIndex);
   masterlistDropdown.value = option.value;
+});
+
+todoDialogCloseBtn.addEventListener("click", () => {
+  newTodoDialog.close();
+});
+
+projectDialogCloseBtn.addEventListener("click", () => {
+  newProjectDialog.close();
 });
 
 function createProjectsDropdown() {
