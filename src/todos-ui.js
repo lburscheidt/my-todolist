@@ -1,5 +1,5 @@
 import { addProjectToMasterlist, createProject } from "./projects-logic";
-import { addTodoToProject, masterlist } from "./todos-logic";
+import { addTodoToProject, masterlist, populateStorage } from "./todos-logic";
 
 export const masterlistDropdown = document.querySelector(
   "#masterlist-dropdown",
@@ -39,7 +39,6 @@ export function renderTodos(projectIndex) {
     const todoColor = document.createElement("div");
     const todoCardInner = document.createElement("div");
     todoColor.classList.add("todo-color");
-
     todoCard.appendChild(todoColor);
     todoCard.appendChild(todoCardInner);
     todos.appendChild(todoCard);
@@ -65,6 +64,11 @@ export function renderTodos(projectIndex) {
     todoDescDiv.textContent = todoDesc;
     todoDueDateDiv.setAttribute("type", "date");
     todoDueDateDiv.value = todoDueDate;
+    //console.log(todoDueDateDiv.value);
+    todoDueDateDiv.addEventListener("change", () => {
+      todo.todoDueDate = todoDueDateDiv.value;
+      populateStorage();
+    });
     priorities.forEach((item) => {
       let priority = document.createElement("option");
       priority.textContent = item;
