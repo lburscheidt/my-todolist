@@ -33,25 +33,17 @@ export function newProjectFromDialog() {
     if (masterlistDropdown.value === "create-new") {
       newProjectDialog.showModal();
     } else {
-      let index = masterlistDropdown.selectedIndex - 2;
-      console.log(masterlistDropdown.selectedIndex - 2);
-      console.log(
-        masterlistDropdown.options[masterlistDropdown.selectedIndex].text,
-      );
-      console.log(masterlist[index].projectTitle);
-      console.log(masterlist[index].projectTodos);
-      if (masterlist[index].projectTodos.length > 0) {
-        //  let projectTodos = masterlist[index].projectTodos;
-
+      const index =
+        masterlistDropdown.options[masterlistDropdown.selectedIndex].dataset
+          .index;
+      const length = masterlist[index].projectTodos.length;
+      if (length > 0) {
         console.log("There are todos here!");
-        /*make separate function out of this at some point*/
-        renderTodos();
+        renderTodos(index);
       } else {
         todos.innerHTML = "";
-        header.textContent = `${masterlist[index].projectTitle}`;
-        masterlistDropdown.selectedIndex = index + 2;
       }
-      //console.log(masterlist[index].projectTodos);
+      header.textContent = `${masterlist[index].projectTitle}`;
     }
   });
   createProjectBtn.addEventListener("click", () => {
@@ -68,6 +60,7 @@ export function newProjectFromDialog() {
 }
 
 export function renderTodos(projectIndex) {
+  todos.innerHTML = "";
   masterlist[projectIndex].projectTodos.forEach((todo) => {
     const todoCard = document.createElement("div");
     const todoCardInner = document.createElement("div");
