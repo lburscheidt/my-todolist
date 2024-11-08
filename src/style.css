@@ -167,15 +167,29 @@ form {
 }
 
 .todo-card {
+  display: flex;
   background-color: aliceblue;
   border-radius: 1rem;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+  padding-right: 10px;
+}
+
+.todo-color {
+  align-self: flex-start;
+  width: 10px;
+  height: 100%;
+  border-radius: 1rem 0 0 1rem;
 }
 
 .todo-card-inner {
+  width: 85%;
+  text-align: right;
   display: flex;
   flex-direction: column;
-  margin-left: 15px;
-  margin-top: 10px;
+  gap: 5px;
 }
 
 .div1 {

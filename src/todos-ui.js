@@ -63,7 +63,11 @@ export function renderTodos(projectIndex) {
   todos.innerHTML = "";
   masterlist[projectIndex].projectTodos.forEach((todo) => {
     const todoCard = document.createElement("div");
+    const todoColor = document.createElement("div");
     const todoCardInner = document.createElement("div");
+    todoColor.classList.add("todo-color");
+
+    todoCard.appendChild(todoColor);
     todoCard.appendChild(todoCardInner);
     todos.appendChild(todoCard);
     todoCard.classList.add("todo-card");
@@ -71,25 +75,34 @@ export function renderTodos(projectIndex) {
     todoCard.dataset.todoIndex = todoIndex;
     todoCardInner.classList.add("todo-card-inner");
     const { todoTitle, todoDesc, todoDueDate, todoPriority } = todo;
+    if (todoPriority == "high") {
+      todoColor.style.backgroundColor = "firebrick";
+    } else if (todoPriority == "normal") {
+      todoColor.style.backgroundColor = "gold";
+    } else if (todoPriority == "low") {
+      todoColor.style.backgroundColor = "forestgreen";
+    }
+
     const todoTitleDiv = document.createElement("div");
     const todoDescDiv = document.createElement("div");
+    const todoDueDateDiv = document.createElement("input");
+    const todoPriorityDiv = document.createElement("select");
+
     todoTitleDiv.textContent = todoTitle;
     todoDescDiv.textContent = todoDesc;
-    todoCardInner.appendChild(todoTitleDiv);
-    todoCardInner.appendChild(todoDescDiv);
-    const todoDueDateDiv = document.createElement("input");
     todoDueDateDiv.setAttribute("type", "date");
     todoDueDateDiv.value = todoDueDate;
-    todoCardInner.appendChild(todoDueDateDiv);
-    const todoPriorityDiv = document.createElement("select");
-    let todoPriorityList = priorities.forEach((item) => {
+    priorities.forEach((item) => {
       let priority = document.createElement("option");
       priority.textContent = item;
       priority.value = item;
-
       todoPriorityDiv.appendChild(priority);
     });
-    todoPriorityDiv.options[todoPriorityDiv.selectedIndex].value = todoPriority;
+    todoPriorityDiv.value = todoPriority;
+
+    todoCardInner.appendChild(todoTitleDiv);
+    todoCardInner.appendChild(todoDescDiv);
+    todoCardInner.appendChild(todoDueDateDiv);
     todoCardInner.appendChild(todoPriorityDiv);
   });
 }
@@ -103,8 +116,6 @@ export function createMasterlistDropdown() {
     projectOption.value = value;
     projectOption.textContent = project.projectTitle;
     projectsOptgroup.appendChild(projectOption);
-    //console.log(project.projectTitle);
-    //console.log();
   });
 }
 
