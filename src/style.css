@@ -91,7 +91,7 @@ select {
   font-weight: 800;
 }
 
-dialog[open] {
+dialog {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -99,6 +99,27 @@ dialog[open] {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  padding: 20px 40px;
+}
+
+dialog label,
+dialog button {
+  margin-top: 15px;
+}
+
+dialog input,
+dialog select {
+  border: 1px solid black;
+  border-radius: 0.5rem;
+}
+form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: flex-end;
+}
+.create-todo-btn {
+  width: 50%;
 }
 
 .close-btn {
@@ -204,4 +225,7 @@ dialog[open] {
 }
 .div16 {
   grid-area: 4 / 4 / 5 / 5;
+}
+.hidden {
+  display: none;
 }

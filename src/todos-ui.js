@@ -6,7 +6,12 @@ const header = document.querySelector("header");
 const todos = document.querySelector("#todos");
 //create new todos
 const newTodoBtn = document.querySelector("#new-todo-btn");
-
+const newTodoDialog = document.querySelector("#new-todo-dialog");
+const createTodoBtn = document.querySelector("#create-todo-btn");
+const todoProject = document.querySelector("#todo-project");
+const dialogProjectsOptgroup = document.querySelector(
+  "#dialog-projects-optgroup",
+);
 //create new projects
 const createProjectBtn = document.querySelector("#create-project-btn");
 const projectTitleInput = document.querySelector("#project-title-input");
@@ -94,7 +99,32 @@ export function createMasterlistDropdown() {
   });
 }
 
-newTodoBtn.addEventListener("click", () => {});
+newTodoBtn.addEventListener("click", () => {
+  newTodoDialog.showModal();
+  createProjectsDropdown();
+});
+
+createTodoBtn.addEventListener("click", () => {});
+
+function createProjectsDropdown() {
+  dialogProjectsOptgroup.innerHTML = "";
+  masterlist.forEach((project) => {
+    let projectOption = document.createElement("option");
+    projectOption.dataset.index = masterlist.indexOf(project);
+    let value = project.projectTitle.toLowerCase().replace(" ", "-");
+    projectOption.value = value;
+    projectOption.textContent = project.projectTitle;
+    dialogProjectsOptgroup.appendChild(projectOption);
+  });
+}
+
+//   masterlist.forEach((entry) => {
+//     let entryOption = document.createElement("option");
+//     entryOption.text = entry.projectTitle;
+//     entryOption.value = entry.projectTitle.toLowerCase().replace(" ", "-");
+//     dialogProjectsOptgroup.appendChild(entryOption);
+//   });
+// }
 
 // export function renderProject(project) {
 //   if (project.projectTodos != []) {
